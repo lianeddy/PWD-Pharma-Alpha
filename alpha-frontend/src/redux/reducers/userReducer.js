@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     id: 0,
     username: "",
     email: "",
-    // alamat: "",
+    // alamat: "", address belum buat di database
     roleID: 0,
     verified: null,
     loading: false,
