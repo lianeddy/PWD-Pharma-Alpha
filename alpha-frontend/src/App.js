@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
-import {Route} from 'react-router-dom'
-import { HomePage, ProfilPage } from './pages';
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
+import { HomePage, ProductDetail, ProfilPage, RegisterPage } from "./pages";
 
 class App extends Component {
-  state = {  }
-  render() { 
-    return ( 
-      <div>
-        <Route path="/" exact component={HomePage}/>
-        <Route path="/profil" component={ProfilPage}/>
+  state = {};
+  render() {
+    return (
+      <div className="App">
+        <Route path="/" exact component={HomePage} />
+        <Route path="/profil" component={ProfilPage} />
+        <Route path="/register" component={RegisterPage} />
+        <Route path="/product/:id" component={ProductDetail} />
       </div>
-     );
+    );
   }
 }
- 
-export default App ;
+
+export default App;
