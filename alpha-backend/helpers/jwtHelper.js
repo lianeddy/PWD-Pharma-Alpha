@@ -12,25 +12,25 @@ module.exports = {
       const result = jwt.verify(token, "!@#$%^&*");
       req.user = result;
       next();
-      console.log(token);
-      console.log(result);
+      // console.log(token);
+      // console.log(result);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
     }
   },
-  // checkToken: (req, res, next) => {
-  //   if (req.method !== "OPTIONS") {
-  //     jwt.verify(req.token, "!@#$%^&*", (err, decoded) => {
-  //       if (err) {
-  //         return res.status(401).send({
-  //           message: err.message,
-  //           status: "Unauthorized",
-  //         });
-  //       }
-  //       req.user = decoded
-  //       next()
-  //     });
-  //   }
-  // },
+  checkToken: (req, res, next) => {
+    if (req.method !== "OPTIONS") {
+      jwt.verify(req.token, "!@#$%^&*", (err, decoded) => {
+        if (err) {
+          return res.status(401).send({
+            message: err.message,
+            status: "Unauthorized",
+          });
+        }
+        req.user = decoded; // 
+        next();
+      });
+    }
+  },
 };

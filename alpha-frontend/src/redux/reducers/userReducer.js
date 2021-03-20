@@ -8,8 +8,8 @@ import {
 
 const INITIAL_STATE = {
   id: 0,
-  username: "",
-  email: "",
+  username: "Bayu",
+  email: "bayuferdiman2@gmail.com",
   alamat: "", //belum ditambahin didatabase
   roleID: 0,
   verified: null,

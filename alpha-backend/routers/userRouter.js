@@ -2,16 +2,11 @@ const router = require("express").Router();
 const query = require("../database");
 const { userController } = require("../controllers");
 // const { verifyToken,  createToken } = require("../helpers/jwtHelper");
-const {
-  checkToken,
-  createJWTToken,
-  hashPassword,
-  transporter,
-  transportPromise,
-} = require("../helpers");
+const hashPassword = require("../helpers/hash");
+const { verifyToken, checkToken } = require("../helpers/jwtHelper");
+const { route } = require("./productRouter");
 
-
-//Get ALL 
+//Get ALL
 router.get("/all", (req, res) => {
   let sql = `select * from users`;
   query(sql, (err, data) => {
@@ -22,17 +17,19 @@ router.get("/all", (req, res) => {
   });
 });
 
-
-
 // Change Password
-router.post("/change-pass", checkToken, (req, res) => {
+// Checktoken blum ditambahkan di parameter ke 2
+// req.paramnya nanti diubah sama req.user.id
+// karena masih belum ada token
+// params :id nanti dihapus saja
+router.post("/change-pass/:id", (req, res) => {
   const { password } = req.body;
-  const userID = req.user.id;
 
+  // const userID = req.user.id;
   // console.log(userID);
   const editPassword = `UPDATE users SET password = '${hashPassword(
     password
-  )}' WHERE id = ${userID}`;
+  )}' WHERE id = ${req.params.id}`;
   // const editPassword = `UPDATE users set password =${password} where id = ${userID}`;
   query(editPassword, (err) => {
     if (err) return res.status(500).send(err.message);
