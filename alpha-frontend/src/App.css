@@ -40,6 +40,17 @@
   margin: 0px;
 }
 
+.card-wrapper {
+  align-items: center;
+  width: 250px;
+  border-style: solid;
+  border-width: thin;
+}
+.parcel-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .registerSection {
   display: flex;
   align-content: center;
@@ -150,4 +161,17 @@
   flex-direction: row;
   align-self: center;
   justify-content: center;
+}
+.parcel-options-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.parcel-options {
+  display: flex;
+  flex-direction: row;
+}
+
+.parcel-option-category {
+  padding: 10px;
 }

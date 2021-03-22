@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const server = require("http").createServer(app);
 const port = process.env.PORT || 2000;
 
-const { userRouter, productRouter } = require("./routers");
+const { userRouter, productRouter, parcelRouter } = require("./routers");
 
 app.use(cors());
 app.use(bodyParser());
@@ -16,5 +16,6 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRouter);
 app.use("/products", productRouter);
+app.use("/parcels", parcelRouter);
 
 server.listen(port, () => console.log(`API active at port ${port}`));
