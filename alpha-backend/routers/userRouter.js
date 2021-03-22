@@ -39,7 +39,6 @@ router.post("/change-pass",checkToken ,(req, res) => {
   const editPassword = `UPDATE users SET password = '${hashPassword(
     password
   )}' WHERE id = ${userID}`;
-  // const editPassword = `UPDATE users set password =${password} where id = ${userID}`;
   query(editPassword, (err) => {
     if (err) return res.status(500).send(err.message);
     return res.status(200).send("Password has been updated");
