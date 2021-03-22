@@ -5,6 +5,7 @@ const createJWTToken = (payload) => {
 };
 const checkToken = (req, res, next) => {
   if (req.method !== "OPTIONS") {
+    // console.log(req.token);
     jwt.verify(req.token, "bakaneko", (err, decoded) => {
       if (err) {
         return res.status(401).send({
