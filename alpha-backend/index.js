@@ -1,3 +1,4 @@
+// require('dotenv').config()
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -19,3 +20,4 @@ app.use("/products", productRouter);
 app.use("/parcels", parcelRouter);
 
 server.listen(port, () => console.log(`API active at port ${port}`));
+
