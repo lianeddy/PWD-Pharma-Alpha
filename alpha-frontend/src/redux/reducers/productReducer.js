@@ -7,7 +7,7 @@ import {
 
 const INITIAL_STATE = {
   productList: [],
-  productId: {},
+  productById: {},
   loading: false,
   error: false,
   errorMessage: "",
@@ -26,18 +26,18 @@ export const productReducer = (state = INITIAL_STATE, action) => {
         productList: action.payload,
         loading: false,
       };
+    case PRODUCT_BY_ID_SUCCESS:
+      return {
+        ...state,
+        productById: action.payload,
+        loading: false,
+      };
     case API_PRODUCT_FAILED:
       return {
         ...state,
         loading: false,
         error: true,
         errorMessage: action.payload,
-      };
-    case PRODUCT_BY_ID_SUCCESS:
-      return {
-        ...state,
-        productId: action.payload,
-        loading: false,
       };
     default:
       return state;

@@ -4,7 +4,8 @@ import ChangePassPage from "./ChangePassPage";
 // import ProfilPage from "./ProfilPage";
 import RegisterPage from "./RegisterPage";
 import ProductDetail from "./ProductDetail";
-import LoginPage from "./LoginPage"
+import LoginPage from "./LoginPage";
+import VerificationPage from "./VerificationPage";
 
 export {
   HomePage,
@@ -12,5 +13,6 @@ export {
   ChangePassPage,
   RegisterPage,
   ProductDetail,
-  LoginPage
+  LoginPage,
+  VerificationPage,
 };

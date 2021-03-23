@@ -10,8 +10,8 @@ const bearerToken = require("express-bearer-token");
 const { userRouter, productRouter } = require("./routers");
 
 app.use(cors());
-app.use(bodyParser());
-app.use(bearerToken())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.status(200).send("<h2>API for Parcel Alpha</h2>");
@@ -21,4 +21,3 @@ app.use("/user", userRouter);
 app.use("/products", productRouter);
 
 server.listen(port, () => console.log(`API active at port ${port}`));
-
