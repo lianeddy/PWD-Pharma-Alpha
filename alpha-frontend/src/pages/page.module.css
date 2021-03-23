@@ -1,10 +1,13 @@
 .container {
     margin-top: 20px;
-    display: flex;
+    display: flex;   
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: #33272a;
+    /* margin-bottom: 40px; */
 }
+
 .Appcontainer {
     margin-top: 20px;
     display: flex;

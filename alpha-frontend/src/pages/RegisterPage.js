@@ -47,6 +47,9 @@ const RegisterPage = () => {
   return (
     <div className="registerSection">
       <div className="registerContainer">
+        <div className="registerHeader">
+          <p>WANDERLUST</p>
+        </div>
         <div className="registerForm">
           <div className="registerItem">
             <label>Username</label>

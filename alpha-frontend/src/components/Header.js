@@ -68,9 +68,9 @@ class Header extends Component {
           </Dropdown>
         )}
         <div>
-          <Link to="/" style={styleLink}>
-            <h1 className={style.title}>Wanderlust</h1>
-          </Link>
+            <a href="/" style={styleLink}>
+              <h1 className={style.title}>Wanderlust</h1>
+            </a>
         </div>
         <Link to="/cart" style={styleLink}>
           <div>

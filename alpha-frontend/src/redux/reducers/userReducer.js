@@ -8,9 +8,9 @@ import {
 
 const INITIAL_STATE = {
   id: 0,
-  username: "",
+  username: "bayu",
   email: "",
-  // alamat: "", address belum buat di database
+  alamat: "", //belum ditambahin didatabase
   roleID: 0,
   verified: null,
   loading: false,
