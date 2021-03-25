@@ -43,8 +43,7 @@
 .card-wrapper {
   align-items: center;
   width: 250px;
-  border-style: solid;
-  border-width: thin;
+  border-style: none;
 }
 .parcel-container {
   display: flex;

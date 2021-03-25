@@ -30,13 +30,14 @@ class ProductDetail extends Component {
   };
 
   cartButton = () => {
+    //! cek id in cart
     const { product, productCart, addToCartAction } = this.props;
     const { selectedQty } = this.state;
-    const { productName, price, stock, id } = product;
+    const { productName, price, stock, id_product } = product;
     console.log(productCart);
-    const inCart = productCart.find((val) => val.id === id);
+    const inCart = productCart.find((val) => val.id_product === id_product);
     if (!inCart) {
-      const cartData = { id, productName, price, qty: selectedQty };
+      const cartData = { id_product, productName, price, qty: selectedQty };
       addToCartAction(cartData);
       swal("Product added to cart.");
     } else {
