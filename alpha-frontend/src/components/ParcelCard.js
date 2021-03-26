@@ -1,21 +1,23 @@
 import React from "react";
+import { api } from "../helpers";
+import style from "./component.module.css";
 const imagesrc =
   "https://i.pinimg.com/564x/48/59/41/485941384d255a96dda1235183204ed0.jpg";
 
 const ParcelCard = (props) => {
   return (
-    <div className="card-wrapper">
+    <div className={style.cardWrapper}>
       <div>
         <img
           top
           width="100%"
-          src={imagesrc}
+          src={props.imagepath ? `${api}${props.imagepath}` : imagesrc}
           alt="img"
-          style={{ width: "200px", height: "200px" }}
+          style={{ width: "210px", height: "210px", objectFit: "cover" }}
         />
         <div>
           <h5>{props.name}</h5>
-          <div className="mb-2 text-muted">{props.price}</div>
+          <h7>Rp {props.price.toLocaleString()}</h7>
         </div>
       </div>
     </div>

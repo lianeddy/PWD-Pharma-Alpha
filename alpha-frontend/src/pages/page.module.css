@@ -1,18 +1,43 @@
 .container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .Appcontainer {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 30px;
-    margin-bottom: 30px 30px;
-    text-align: left;
-    color: #594a4e;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  margin-bottom: 30px 30px;
+  text-align: left;
+  color: #594a4e;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.parcelOptions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.parcelOptions:hover {
+  color: #ff8ba7;
+}
+
+.caption {
+  margin-left: 250px;
+  margin-right: 250px;
+  text-align: center;
+  color: #594a4e;
 }

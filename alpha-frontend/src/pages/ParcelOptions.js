@@ -1,47 +1,62 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button } from "reactstrap";
-import { ProductCard } from "../components";
-import { fetchParcelId, changeIsCheckedAction } from "../redux/actions";
-import Select from "react-select";
-import Checkbox from "../components/Checkbox";
+import { ProductCard, TitleCard } from "../components";
+import {
+  fetchParcelId,
+  changeIsCheckedAction,
+  fetchParcels,
+} from "../redux/actions";
 
 class ParcelOptions extends Component {
   state = {
-    isChecked: false,
     products: [],
   };
 
-  // Mengambil list produk sesuai tipe parsel
   componentDidMount() {
-    const { fetchParcelId } = this.props;
+    const { fetchParcelId, fetchParcels } = this.props;
     const params = new window.URLSearchParams(window.location.search);
     console.log(`Parcel type: ${params.get("id")}`);
     const id = params.get("id");
     fetchParcelId(id);
+    fetchParcels();
   }
 
-  handleisChecked = (e) => {
-    // const { changeIsCheckedAction } = this.props;
-    // const products = this.state.products;
-    // console.log(`Clicked product: ${id}`);
-    // changeIsCheckedAction(id);
+  handleisChecked = (item) => {
+    const { products } = this.state;
+    console.log(`Clicked product: ${item}`);
+    const iteminarray = products.indexOf(item);
+    console.log(iteminarray);
+    if (iteminarray === -1) {
+      this.setState({ products: [...products, item] });
+    } else {
+      products.splice(iteminarray, 1);
+    }
   };
 
-  // Menampilkan list produk sesuai kategori produk
+  renderTitle = () => {
+    const { parcelList } = this.props;
+    const params = new window.URLSearchParams(window.location.search);
+    const id = params.get("id");
+    let onPackage = parcelList.filter((obj) => obj.parcel_id === parseInt(id));
+    const { parcelName, description } = onPackage[0];
+    return <TitleCard title={parcelName} subtitle={description} />;
+  };
+
   renderShampoo = () => {
     const { parcelbyId } = this.props;
-    const shampoo = parcelbyId.filter((obj) => obj.categoryID === 1);
+    let shampoo = parcelbyId.filter((obj) => obj.categoryID === 1);
     return shampoo.map((val) => {
       return (
         <div>
           <input
             type="checkbox"
-            // onChange={() => this.handleisChecked(val.id_product)}
-            // onClick={() => this.handleisChecked(val.id_product)}
+            onClick={() => this.handleisChecked(val.id_product)}
           />
-          {/* <ProductCard name={val.productName} id_product={val.id_product} /> */}
-          <ProductCard name={val.productName} id_product={val.id_product} />
+          <ProductCard
+            name={val.productName}
+            id_product={val.id_product}
+            imagepath={val.imagepath}
+          />
         </div>
       );
     });
@@ -53,8 +68,15 @@ class ParcelOptions extends Component {
     return soap.map((val) => {
       return (
         <div>
-          <input type="checkbox" />
-          <ProductCard name={val.productName} id_product={val.id_product} />
+          <input
+            type="checkbox"
+            onClick={() => this.handleisChecked(val.id_product)}
+          />
+          <ProductCard
+            name={val.productName}
+            id_product={val.id_product}
+            imagepath={val.imagepath}
+          />
         </div>
       );
     });
@@ -66,41 +88,61 @@ class ParcelOptions extends Component {
     return perfume.map((val) => {
       return (
         <div>
-          <input type="checkbox" />
-          <ProductCard name={val.productName} id_product={val.id_product} />
+          <input
+            type="checkbox"
+            onClick={() => this.handleisChecked(val.id_product)}
+          />
+          <ProductCard
+            name={val.productName}
+            id_product={val.id_product}
+            imagepath={val.imagepath}
+          />
         </div>
       );
     });
   };
 
   handleAddToCartBtn = () => {
-    const { parcelbyId } = this.props;
-    const productToCart = parcelbyId.filter((val) => {
-      return val.isChecked === 1;
-    });
-    console.log(productToCart);
-    // cart action: bawa producttocart dan reset isclickednya di database
+    console.log(this.state.products);
   };
 
   render() {
+    const { products } = this.state;
     console.log(this.state.products);
     return (
       <div>
+        <div>{this.renderTitle()}</div>
         <div className="parcel-options-wrapper">
-          <div className="parcel-option-category">
-            <h6>Shampoo</h6>
+          <div style={{ alignSelf: "center", marginTop: "30px" }}>
+            <h4 style={{ color: "#594a4e" }}>Shampoo</h4>
             <div className="parcel-options">{this.renderShampoo()}</div>
           </div>
-          <div className="parcel-option-category">
-            <h6>Soap</h6>
+          <div style={{ alignSelf: "center", marginTop: "30px" }}>
+            <h4 style={{ color: "#594a4e" }}>Soap</h4>
             <div className="parcel-options">{this.renderSoap()}</div>
           </div>
-          <div className="parcel-option-category">
-            <h6>Perfume</h6>
+          <div style={{ alignSelf: "center", marginTop: "30px" }}>
+            <h4>Perfume</h4>
             <div className="parcel-options">{this.renderPerfume()}</div>
           </div>
+          <button
+            style={{
+              marginBottom: "20px",
+              marginTop: "20px",
+              backgroundColor: "#ff8ba7",
+              color: "#33272a",
+              width: "150px",
+              padding: "5px",
+              borderRadius: "5px",
+              alignSelf: "center",
+              outline: "none",
+            }}
+            onClick={this.handleAddToCartBtn}
+            disabled={products.length === 0}
+          >
+            Add to Cart
+          </button>
         </div>
-        <Button onClick={this.handleAddToCartBtn}>Add to Cart</Button>
       </div>
     );
   }
@@ -109,10 +151,12 @@ class ParcelOptions extends Component {
 const mapStatetoProps = ({ parcel }) => {
   return {
     parcelbyId: parcel.parcelbyId,
+    parcelList: parcel.parcelList,
   };
 };
 
 export default connect(mapStatetoProps, {
   fetchParcelId,
   changeIsCheckedAction,
+  fetchParcels,
 })(ParcelOptions);

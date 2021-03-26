@@ -32,8 +32,9 @@ router.get("/:id", (req, res) => {
   query(
     `SELECT * FROM products WHERE id_product = ${product_id}`,
     (err, data) => {
-      if (err) res.status(400).send({ error: err.message });
-      res.status(200).send(data[0]);
+      console.log(err);
+      if (err) return res.status(400).send({ error: err.message });
+      return res.status(200).send(data[0]);
     }
   );
 });

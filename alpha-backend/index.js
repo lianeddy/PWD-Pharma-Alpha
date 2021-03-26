@@ -17,6 +17,7 @@ const {
 app.use(cors());
 app.use(bodyParser());
 app.use(bearerToken());
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.status(200).send("<h2>API for Parcel Alpha</h2>");

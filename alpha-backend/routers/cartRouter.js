@@ -57,6 +57,7 @@ router.get("/:user_id", (req, res) => {
   query(selectCartQuery(parseInt(req.params.user_id)), (err, data) => {
     if (err) return res.status(500).send({ error: err.message });
     if (data.length === 0) return res.status(200).json({});
+    console.log(data[0].content);
     res.status(200).json(JSON.parse(data[0].content));
   });
 });

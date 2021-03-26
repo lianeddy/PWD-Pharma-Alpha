@@ -164,6 +164,7 @@
 .parcel-options-wrapper {
   display: flex;
   flex-direction: column;
+  align-content: center;
 }
 
 .parcel-options {
@@ -173,4 +174,7 @@
 
 .parcel-option-category {
   padding: 10px;
+}
+.parcel-option-category > h4 {
+  justify-self: center;
 }

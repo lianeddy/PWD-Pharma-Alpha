@@ -24,6 +24,7 @@ export const parcelReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         parcelList: action.payload,
+        loading: false,
       };
     case PARCEL_BY_ID_SUCCES:
       return {

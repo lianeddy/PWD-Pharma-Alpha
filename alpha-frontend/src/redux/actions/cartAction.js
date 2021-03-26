@@ -1,5 +1,4 @@
 import axios from "axios";
-import swal from "sweetalert";
 import { api } from "../../helpers";
 import { ADD_TO_CART, ADD_TO_CART_SUCCESS } from "../types";
 
