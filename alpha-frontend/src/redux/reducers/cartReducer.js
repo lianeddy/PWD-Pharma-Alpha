@@ -6,6 +6,7 @@ import {
 
 const INITIAL_STATE = {
   cartList: [],
+  productCart: [],
   loading: false,
 };
 

@@ -155,11 +155,10 @@
 }
 
 .image-detail {
-  margin: 40px;
   padding: 40px;
   width: 50%;
-  height: 400px;
-  background-color: rgb(238, 211, 211);
+  height: 500px;
+  background-color: white;
 }
 
 .product-title {

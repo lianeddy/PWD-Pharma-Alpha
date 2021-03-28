@@ -81,7 +81,7 @@ class ProductDetail extends Component {
           <img
             src={imagepath ? `${api}${imagepath}` : image}
             alt="img"
-            style={{ width: "100%", height: "50%", objectFit: "cover" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </div>
         <div className="product-detail">
@@ -92,7 +92,7 @@ class ProductDetail extends Component {
             <h6>{description}</h6>
           </div>
           <div className="product-price">
-            <h8>Rp {price.toLocaleString()}</h8>
+            <h8>Rp {price}</h8>
           </div>
           <div className="product-action">
             <div className="add-to-cart">
