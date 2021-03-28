@@ -24,4 +24,11 @@
   object-fit: cover;
 }
 
+.btnModal {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+
 

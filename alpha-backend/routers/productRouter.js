@@ -2,6 +2,7 @@ const router = require("express").Router();
 const query = require("../database");
 const { uploader } = require("../handlers");
 const fs = require("fs");
+const pify = require("pify");
 
 router.get("/", (req, res) => {
   let sql = `SELECT * FROM products `;
@@ -20,7 +21,6 @@ router.get("/", (req, res) => {
   } else if (req.query.productName) {
     sql += ` WHERE LOWER(productName) LIKE ('%${req.query.productName}%')`;
   }
-
   query(sql, (err, data) => {
     if (err) return res.status(500).send({ error: err.message });
     return res.status(200).send(data);
@@ -40,9 +40,25 @@ router.get("/:id", (req, res) => {
   );
 });
 
+// Get product by admin
+router.get("/admin/product", async (req, res) => {
+  try {
+    const response = await query(`select 
+    p.productName,
+    p.id_product, p.price,
+    p.description,p.isAvailable,
+    p.stock,p.imagepath,c.categoryName
+     from products p left join categories c on p.categoryID = c.id`);
+    //  console.log(response);
+    return res.status(200).send(response);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+});
+
 // TODO : Insert, Update, Delete
 // Just Uploud Email
-// 
+//
 router.post("/:id", (req, res) => {
   try {
     const path = "/products";
@@ -68,24 +84,19 @@ router.post("/:id", (req, res) => {
   }
 });
 
-
-// ! Insert
-router.post("/", (req, res) => {
+//  Insert
+router.post("/admin/products", async (req, res) => {
   try {
     const path = "/products";
-    const upload = uploader(path, "PRD").fields([{ name: "image" }]);
-    upload(req, res, (err) => {
+    const upload = pify(uploader(path, "PRD").fields([{ name: "image" }]));
+    await upload(req, res, (err) => {
       const { image } = req.files;
-      // const { productName, price, description, stock } = req.body.data;
-      // console.log(req.body);
-
-      const { productName, price, description, stock } = JSON.parse(
+      const { productName, price, description, stock, categoryID } = JSON.parse(
         req.body.data
       );
-
       const imagePath = image ? `${path}/${image[0].filename}` : null;
-
-      let sql = `INSERT INTO products (productName, price, description, stock, isAvailable, imagepath) VALUES ('${productName}', ${price}, '${description}', '${stock}', 1, '${imagePath}')`;
+      console.log(imagePath);
+      let sql = `INSERT INTO products (productName, price, description, stock, isAvailable, imagepath,categoryID) VALUES ('${productName}', ${price}, '${description}', ${stock}, 1, '${imagePath}', ${categoryID})`;
       query(sql, (err, data) => {
         if (err) {
           fs.unlinkSync(`public${imagePath}`);
@@ -97,42 +108,50 @@ router.post("/", (req, res) => {
       });
     });
   } catch (err) {
-    res.status(200).send(err.message);
+    res.status(500).send(err.message);
     // console.log(err);
   }
 });
 
 // Edit Gambar baru
-router.patch("/:id", (req, res) => {
-  query(
-    `SELECT * FROM products WHERE id_product = ${req.params.id}`,
-    (err, data) => {
+router.patch("/:id_product", async (req, res) => {
+  console.log(req.params.id_product);
+  await query(
+    `SELECT * FROM products WHERE id_product = ${req.params.id_product}`,
+    async (err, data) => {
       const oldImagePath = data[0].imagepath;
       const idProduct = data[0].id_product;
       try {
         const path = "/products";
-        const upload = uploader(path, "PRD").fields([{ name: "image" }]);
-        
-        upload(req, res, (err) => {
-          // console.log(idProduct);
+        const upload = pify(uploader(path, "PRD").fields([{ name: "image" }]));
+
+        await upload(req, res, (err) => {
+          // console.log(req.files.image);
+
           const { image } = req.files;
-          const { productName, price, description, stock } = JSON.parse(
-            req.body.data
-          );
+          const {
+            productName,
+            price,
+            description,
+            stock,
+            categoryName,
+          } = JSON.parse(req.body.data);
+
+          // console.log(idProduct);
+          // console.log(JSON.parse(req.body.data));
 
           const imagePath = image
             ? `${path}/${image[0].filename}`
             : oldImagePath;
-          let sql = `UPDATE products SET productName = '${productName}', price = ${price}, description = '${description}', stock = ${stock}, imagepath = ${
-            imagePath ? `${imagePath}` : null
-          } WHERE id_product = ${idProduct}`;
+          console.log(imagePath);
 
+          let sql = `UPDATE products SET productName = '${productName}', price = ${price}, description = '${description}',categoryID = ${categoryName} ,stock = ${stock}, imagepath = '${imagePath}' WHERE id_product = ${idProduct}`;
 
-          db.query(sql, (err) => {
-            if (err) {
-              fs.unlinkSync(`public${imagePath}`);
-              res.status(500).send(err);
-            }
+          query(sql, (err) => {
+            // if (err) {
+            //   fs.unlinkSync(`public${imagePath}`);
+            //   res.status(500).send(err);
+            // }
             if (image && oldImagePath !== null) {
               fs.unlinkSync(`public${oldImagePath}`);
             }
@@ -144,63 +163,11 @@ router.patch("/:id", (req, res) => {
           });
         });
       } catch (err) {
-        // console.log(err);
-        return res.status(500).send(err.message)
+        return res.status(500).send(err.message);
       }
     }
   );
 });
-// router.patch("/:id", (req, res) => {
-//   query(`SELECT * FROM products WHERE id_product = ${req.params.id}`, (err, data) => {
-//     const oldImagePath = data[0].imagepath;
-//     const idProduct = data[0].id_product;
-//     // console.log(data);
-
-//     try {
-//       const path = "/products";
-//       const upload = uploader(path, "PRD").fields([{ name: "image" }]);
-
-//       upload(req, res, (err) => {
-//         const { image } = req.files;
-//         console.log(req.body);
-//         const { productName, price, description, stock } = JSON.parse(req.body.data)
-//         // const get = JSON.parse(req.body.data)
-//         console.log(req.body.data);
-//         // apabila user tidak mengupload foto baru maka sql akan mengupdate menggunakan foto yang lama
-//         const imagePath = image ? `${path}/${image[0].filename}` : oldImagePath;
-//         // console.log("=========");
-
-//         let sql = `UPDATE products SET productName = '${productName}', price = ${price}, description = '${description}', stock = ${stock}, imagepath = ${
-//           imagePath ? `${imagePath}` : null
-//         } WHERE id = ${idProduct}`;
-
-//         // let sql = `INSERT INTO products (productName, price, description, stock, isAvailable, imagepath) VALUES ('${productName}', ${price}, '${description}', '${stock}', 1, '${imagePath}')`;
-
-//         // let sql = `UPDATE products set imagepath = '${imagePath}' WHERE id = ${idProduct}`;
-
-//         query(sql, (err) => {
-//           if (err) {
-//             fs.unlinkSync(`public${imagePath}`);
-//             res.status(500).send(err);
-//             // console.log("=========");
-//           }
-
-//           // Apabila user upload foto baru dan kolom imagepath sudah terisi dengan foto produk
-//           if (image && oldImagePath !== null) {
-//             fs.unlinkSync(`public${oldImagePath}`);
-//           }
-
-//           return res.status(200).send({
-//             message: "Data Edited",
-//             status: "Edited",
-//           });
-//         });
-//       });
-//     } catch (err) {
-//       return res.status(500).send(err.message);
-//     }
-//   });
-// });
 
 // Delete
 // for restock
@@ -222,13 +189,13 @@ router.put("/:id", (req, res) => {
 // in row database & delete imagepath product
 router.delete("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  console.log(id);
+  // console.log(id);
   try {
     const product = await query(
       `SELECT * FROM products WHERE id_product = ${id}`
     );
     const idProduct = product[0].id_product;
-    console.log(product);
+    // console.log(product);
     const oldImagePath = product[0].imagepath;
     await query(`DELETE FROM products WHERE id_product = ${idProduct}`);
     fs.unlinkSync(`public${oldImagePath}`);

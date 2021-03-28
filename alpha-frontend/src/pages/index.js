@@ -7,6 +7,7 @@ import ProductDetail from "./ProductDetail";
 import LoginPage from "./LoginPage";
 import VerificationPage from "./VerificationPage";
 import ForgetPage from "./ForgetPage"
+import AdminProduct from "./AdminProduct"
 
 export {
   HomePage,
@@ -16,5 +17,6 @@ export {
   ProductDetail,
   LoginPage,
   VerificationPage,
-  ForgetPage
+  ForgetPage,
+  AdminProduct
 };
