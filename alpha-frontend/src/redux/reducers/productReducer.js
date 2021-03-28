@@ -61,8 +61,8 @@ export const productReducer = (state = INITIAL_STATE, action) => {
       //filter by price
       return {
         ...state,
-        productList : action.payload,
-        loading : false
+        productList: action.payload,
+        loading: false,
       };
     case LOAD_DATA:
       //load data

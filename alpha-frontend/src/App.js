@@ -11,8 +11,7 @@ import {
   ForgetPage,
   LoginPage,
   RegisterPage,
-  ProductDetail
-  LoginPage,
+  ProductDetail,
 } from "./pages";
 import { keepLoginAction } from "./redux/actions";
 

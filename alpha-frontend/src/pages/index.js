@@ -6,7 +6,7 @@ import RegisterPage from "./RegisterPage";
 import ProductDetail from "./ProductDetail";
 import LoginPage from "./LoginPage";
 import VerificationPage from "./VerificationPage";
-import ForgetPage from "./ForgetPage"
+import ForgetPage from "./ForgetPage";
 import ParcelPage from "./ParcelPage";
 import ParcelOptions from "./ParcelOptions";
 
@@ -18,7 +18,7 @@ export {
   ProductDetail,
   LoginPage,
   VerificationPage,
-  ForgetPage
+  ForgetPage,
   ParcelPage,
   ParcelOptions,
 };

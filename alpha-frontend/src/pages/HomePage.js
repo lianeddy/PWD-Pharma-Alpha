@@ -97,6 +97,17 @@ class HomePage extends Component {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incidi
             </p>
+            <a href="/parcels">
+              <Button
+                style={{
+                  marginTop: "20px",
+                  backgroundColor: "#ff8ba7",
+                  border: "none",
+                }}
+              >
+                Select Parcels
+              </Button>
+            </a>
           </div>
           <div>
             <img
@@ -130,7 +141,11 @@ class HomePage extends Component {
             />
             <Button
               onClick={this.oncClickFilter}
-              style={{ marginLeft: 30, backgroundColor: "#ff8ba7", border: "none" }}
+              style={{
+                marginLeft: 30,
+                backgroundColor: "#ff8ba7",
+                border: "none",
+              }}
             >
               Go!
             </Button>

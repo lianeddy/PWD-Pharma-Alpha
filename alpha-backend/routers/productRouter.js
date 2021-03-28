@@ -21,14 +21,16 @@ router.get("/", (req, res) => {
 
 // Get per id
 router.get("/:id", (req, res) => {
-  // console.log(req.params.imagepath);
-  // const imagepath = parseInt(req.params);
-  query(`SELECT * FROM products WHERE id = ${req.params}`, (err, data) => {
-    if (err) {
-      return res.status(500).send(err.message);
+  query(
+    `SELECT * FROM products WHERE id_product = ${req.params.id}`,
+    (err, data) => {
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+      console.log(data[0]);
+      return res.status(200).send(data[0]);
     }
-    return res.status(200).send(data);
-  });
+  );
 });
 
 // Uploud gambar product per Id,

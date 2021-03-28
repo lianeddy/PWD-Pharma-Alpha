@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import "../App.css";
+import { api } from "../helpers";
 import { connect } from "react-redux";
 import { productById, addToCartAction, editCartAction } from "../redux/actions";
 import swal from "sweetalert";
+import image from "../assets/10.png";
 
 class ProductDetail extends Component {
   state = {
@@ -35,12 +37,13 @@ class ProductDetail extends Component {
       addToCartAction,
       editCartAction,
     } = this.props;
+    console.log(product);
     const { selectedQty } = this.state;
     const { productName, price, stock, id_product } = product;
     console.log(productCart);
     const inCart = productCart.find((val) => val.id_product === id_product);
     if (!inCart) {
-      const cartData = { id_product, productName, price, qty: selectedQty };
+      let cartData = { id_product, price, productName, qty: selectedQty };
       addToCartAction(cartData);
       swal("Product added to cart.");
     } else {
@@ -48,7 +51,7 @@ class ProductDetail extends Component {
         swal("Quantity exceed available product.");
       } else {
         let cartData = {
-          id: inCart.id,
+          id_product: inCart.id_product,
           price: inCart.price,
           productName: inCart.productName,
           qty: inCart.qty + selectedQty,
@@ -71,11 +74,15 @@ class ProductDetail extends Component {
     } = this.props.product;
     let available = stock;
     const { selectedQty } = this.state;
-
+    console.log(productName);
     return (
       <div className="product-detail-container">
         <div className="image-detail">
-          <img src={imagepath} alt="img" width="20%" />
+          <img
+            src={imagepath ? `${api}${imagepath}` : image}
+            alt="img"
+            style={{ width: "100%", height: "50%", objectFit: "cover" }}
+          />
         </div>
         <div className="product-detail">
           <div className="product-title">
@@ -85,7 +92,7 @@ class ProductDetail extends Component {
             <h6>{description}</h6>
           </div>
           <div className="product-price">
-            <h8>Rp {price}</h8>
+            <h8>Rp {price.toLocaleString()}</h8>
           </div>
           <div className="product-action">
             <div className="add-to-cart">

@@ -17,14 +17,23 @@ class CardProduct extends Component {
   render() {
     const { nama, harga, stock, imagepath, index } = this.props;
     return (
-      <div key={index} style={{ width: 270, height: "auto",marginLeft : 20, marginTop: 20, marginBottom: 20  }}>
+      <div
+        key={index}
+        style={{
+          width: 270,
+          height: "auto",
+          marginLeft: 20,
+          marginTop: 20,
+          marginBottom: 20,
+        }}
+      >
         <Card>
           <CardImg
             src={imagepath ? `${api}${imagepath}` : wander}
             alt="ga keambil"
             className={style.imgcard}
           />
-          <CardBody >
+          <CardBody>
             <CardTitle tag="h4">{nama}</CardTitle>
             <CardSubtitle tag="h6">
               Rp.{harga} || Stock {stock}
