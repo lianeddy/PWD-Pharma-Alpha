@@ -7,10 +7,15 @@ const server = require("http").createServer(app);
 const port = process.env.PORT || 2000;
 const bearerToken = require("express-bearer-token");
 
-const { userRouter, productRouter } = require("./routers");
+const {
+  userRouter,
+  productRouter,
+  parcelRouter,
+  cartRouter,
+} = require("./routers");
 
 app.use(cors());
-app.use(bearerToken())
+app.use(bearerToken());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -21,5 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRouter);
 app.use("/products", productRouter);
+app.use("/parcels", parcelRouter);
+app.use("/cart", cartRouter);
 
 server.listen(port, () => console.log(`API active at port ${port}`));

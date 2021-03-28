@@ -21,6 +21,7 @@ class ChangePassPage extends Component {
     const { password } = this.state;
     const token = new URLSearchParams(this.props.location.search).get("token");
     changePassAction({ password, token });
+    alert("password has been changed");
   };
 
   render() {

@@ -4,12 +4,15 @@ import { Route } from "react-router-dom";
 import { Header } from "./components";
 import {
   HomePage,
+  ParcelOptions,
+  ParcelPage,
   AccountPage,
   ChangePassPage,
   ForgetPage,
   LoginPage,
   RegisterPage,
   ProductDetail
+  LoginPage,
 } from "./pages";
 import { keepLoginAction } from "./redux/actions";
 
@@ -33,10 +36,11 @@ class App extends Component {
         <Route path="/product/:id" component={ProductDetail} />
         <Route path="/forget-password" component={ForgetPage} />
         <Route path="/change-password" component={ChangePassPage} />
+        <Route path="/parcels" component={ParcelPage} />
+        <Route path="/parcel-options" component={ParcelOptions} />
       </div>
     );
   }
 }
 
-
-export default connect(null, {keepLoginAction}) (App);
+export default connect(null, { keepLoginAction })(App);

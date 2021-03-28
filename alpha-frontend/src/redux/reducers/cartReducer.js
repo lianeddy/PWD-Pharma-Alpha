@@ -5,8 +5,7 @@ import {
 } from "../types";
 
 const INITIAL_STATE = {
-  parcelCart: [],
-  productCart: [],
+  cartList: [],
   loading: false,
 };
 

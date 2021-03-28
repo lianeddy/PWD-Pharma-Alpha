@@ -19,9 +19,19 @@
 
 .imgcard {
   float: left;
-  width:  200px;
+  width: 200px;
   height: 200px;
   object-fit: cover;
 }
 
-
+.cardWrapper {
+  align-items: center;
+  border-style: none;
+  margin: 30px;
+  text-align: center;
+  color: #594a4e;
+  text-decoration: none;
+}
+.cardWrapper:hover {
+  color: #ff8ba7;
+}

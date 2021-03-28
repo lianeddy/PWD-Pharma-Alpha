@@ -36,12 +36,11 @@ class ProductDetail extends Component {
       editCartAction,
     } = this.props;
     const { selectedQty } = this.state;
-    const { productName, price, stock, id } = product;
+    const { productName, price, stock, id_product } = product;
     console.log(productCart);
-    const inCart = productCart.find((val) => val.id === id);
-    console.log(inCart);
+    const inCart = productCart.find((val) => val.id_product === id_product);
     if (!inCart) {
-      let cartData = { id, price, productName, qty: selectedQty };
+      const cartData = { id_product, productName, price, qty: selectedQty };
       addToCartAction(cartData);
       swal("Product added to cart.");
     } else {

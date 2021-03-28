@@ -7,6 +7,8 @@ import ProductDetail from "./ProductDetail";
 import LoginPage from "./LoginPage";
 import VerificationPage from "./VerificationPage";
 import ForgetPage from "./ForgetPage"
+import ParcelPage from "./ParcelPage";
+import ParcelOptions from "./ParcelOptions";
 
 export {
   HomePage,
@@ -17,4 +19,6 @@ export {
   LoginPage,
   VerificationPage,
   ForgetPage
+  ParcelPage,
+  ParcelOptions,
 };

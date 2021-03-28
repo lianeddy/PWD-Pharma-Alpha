@@ -95,3 +95,20 @@ export const productById = (id) => {
     }
   };
 };
+
+export const changeIsCheckedAction = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: API_PRODUCT_START,
+      });
+      await Axios.patch(`${url}/change-ischecked/${id}`);
+      console.log("eaea");
+      dispatch({
+        type: API_PRODUCT_SUCCESS,
+      });
+    } catch (err) {
+      dispatch({ type: API_PRODUCT_FAILED, payload: err.message });
+    }
+  };
+};

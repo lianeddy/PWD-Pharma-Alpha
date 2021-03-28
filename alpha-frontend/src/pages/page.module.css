@@ -55,3 +55,27 @@
   display: flex;
   width: 400px;
 }
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.parcelOptions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.parcelOptions:hover {
+  color: #ff8ba7;
+}
+
+.caption {
+  margin-left: 250px;
+  margin-right: 250px;
+  text-align: center;
+  color: #594a4e;
+}
