@@ -146,7 +146,7 @@ export const addProductAction = (data) => {
           "Content-Type": "multipart/form-data",
         },
       };
-      await Axios.post(`${url}/admin/products`, formData,headers);
+      await Axios.post(`${url}/admin/products`, formData, headers);
       dispatch(fetchProductsAdmin());
       dispatch({
         type: API_PRODUCT_SUCCESS,
@@ -187,17 +187,31 @@ export const editProductsAction = (data) => {
       type: API_PRODUCT_START,
     });
 
-    const { id_product, productName, price, description, stock, image,categoryName } = data;
+    const {
+      id_product,
+      productName,
+      price,
+      description,
+      stock,
+      image,
+      categoryName,
+    } = data;
 
     // const value = JSON.stringify({ productName, description, stock, price,categoryName });
     // let formData = new FormData();
     // formData.append("image", image.imageFile);
     // formData.append("data", value);
     try {
-      const value = JSON.stringify({ productName, description, stock, price,categoryName });
-    let formData = new FormData();
-    formData.append("image", image.imageFile);
-    formData.append("data", value);
+      const value = JSON.stringify({
+        productName,
+        description,
+        stock,
+        price,
+        categoryName,
+      });
+      let formData = new FormData();
+      formData.append("image", image.imageFile);
+      formData.append("data", value);
       const headers = {
         headers: {
           "Content-Type": "multipart/form-data",

@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 import { api } from "../../helpers";
 import {
   ADD_TO_CART_SUCCESS,
@@ -15,7 +15,7 @@ export const getParcelCart = (user_id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: CART_START });
-      const response = await Axios.get(`${url}/parcels/${user_id}`);
+      const response = await axios.get(`${url}/parcels/${user_id}`);
       dispatch({ type: PARCEL_CART_SUCCESS, payload: response.data });
     } catch (err) {
       dispatch({ type: CART_FAILED, payload: err.message });
@@ -27,7 +27,7 @@ export const getProductCart = (user_id) => {
   return async (dispatch) => {
     try {
       dispatch({ type: CART_START });
-      const response = await Axios.get(`${url}/products/${user_id}`);
+      const response = await axios.get(`${url}/products/${user_id}`);
       dispatch({ type: PRODUCT_CART_SUCCESS, payload: response.data });
     } catch (err) {
       dispatch({ type: CART_FAILED, payload: err.message });
@@ -39,7 +39,7 @@ export const changeQuantityParcel = ({ quantity, parcelID, user_id }) => {
   return async (dispatch) => {
     try {
       dispatch({ type: CART_START });
-      await Axios.patch(`${url}/parcels`, quantity, {
+      await axios.patch(`${url}/parcels`, quantity, {
         params: { user_id, parcelID },
       });
       dispatch(getParcelCart(user_id));
@@ -53,7 +53,7 @@ export const changeQuantityProduct = ({ quantity, productID, user_id }) => {
   return async (dispatch) => {
     try {
       dispatch({ type: CART_START });
-      await Axios.patch(`${url}/products/${productID}`, quantity);
+      await axios.patch(`${url}/products/${productID}`, quantity);
       dispatch(getProductCart(user_id));
     } catch (err) {
       dispatch({ type: CART_FAILED, payload: err.message });
@@ -122,7 +122,7 @@ export const editCartAction = (data) => {
 //       dispatch({
 //         type: CART_START,
 //       });
-//       const response = await Axios.get(`${url}/${user_id}`);
+//       const response = await axios.get(`${url}/${user_id}`);
 //       dispatch({ type: CART_SUCCESS, payload: [...response.data] });
 //     } catch (error) {
 //       dispatch({ type: CART_FAILED, payload: error.message });

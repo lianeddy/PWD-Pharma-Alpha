@@ -95,6 +95,8 @@ router.post("/admin/products", async (req, res) => {
       const { productName, price, description, stock, categoryID } = JSON.parse(
         req.body.data
       );
+
+      console.log(JSON.parse(req.body.data));
       const imagePath = image ? `${path}/${image[0].filename}` : null;
       console.log(imagePath);
       let sql = `INSERT INTO products (productName, price, description, stock, isAvailable, imagepath,categoryID) VALUES ('${productName}', ${price}, '${description}', ${stock}, 1, '${imagePath}', ${categoryID})`;

@@ -13,7 +13,6 @@ import {
   RegisterPage,
   ProductDetail,
   AdminProduct,
-  LoginPage,
   VerificationPage,
   CartPage,
 } from "./pages";
